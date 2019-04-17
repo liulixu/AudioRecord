@@ -3,6 +3,7 @@ package com.liu.autiorecord.utils;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -69,10 +70,12 @@ public class PcmToWavUtil {
             while (in.read(data) != -1) {
                 out.write(data);
             }
+            Log.e("-------------------","转码完成！");
             in.close();
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e("-------------------","转码失败！"+e.toString());
         }
     }
 

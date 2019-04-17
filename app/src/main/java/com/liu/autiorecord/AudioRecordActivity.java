@@ -29,7 +29,7 @@ import static com.liu.autiorecord.utils.GlobalConfig.AUDIO_FORMAT;
 import static com.liu.autiorecord.utils.GlobalConfig.CHANNEL_CONFIG;
 import static com.liu.autiorecord.utils.GlobalConfig.SAMPLE_RATE_INHZ;
 
-public class MainActivity extends BaseActivity  {
+public class AudioRecordActivity extends BaseActivity  {
 
     private AudioRecord audioRecord = null;//声明AudioRecord对象
     private boolean isRecording = false;//是否录音
@@ -75,14 +75,14 @@ public class MainActivity extends BaseActivity  {
             public void onClick(View v) {
                 PcmToWavUtil pcmToWavUtil = new PcmToWavUtil(SAMPLE_RATE_INHZ, CHANNEL_CONFIG, AUDIO_FORMAT);
                 File pcmFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.pcm");
-                File wavFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.wav");
+                File wavFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "video2.wav");
                 if (!wavFile.mkdirs()) {
                     Log.e("--------", "wavFile Directory not created");
                 }
                 if (wavFile.exists()) {
                     wavFile.delete();
                 }
-                pcmToWavUtil.pcmToWav(pcmFile.getAbsolutePath(), wavFile.getAbsolutePath());
+                pcmToWavUtil.pcmToWav(Environment.getExternalStorageDirectory().getPath()+"/video2.pcm", wavFile.getAbsolutePath());
             }
         });
 
@@ -199,7 +199,7 @@ public class MainActivity extends BaseActivity  {
         audioTrack.play();
         isPlaying = true;
 
-        File file = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.pcm");
+        File file = new File(Environment.getExternalStorageDirectory().getPath()+"/video2.pcm");
         try {
             fileInputStream = new FileInputStream(file);
             new Thread(new Runnable() {
